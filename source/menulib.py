@@ -17,36 +17,20 @@ A library to use for displaying vertical menu with submenu
 Just call run_menu with a list (or tuple) of a menu
 display_box is given as extra for displaying a list outside of a menu
 
-Monday, April 07, 2014
+Wednesday 09 April 2014 [10:57]
+
 """
 
 import curses
 from curses import panel
 
-menu_1=(
-	"Demo->",
-	"Color",
-	"Audio",
-	"Window")
-
-menu_2=(
-	"Window->",
-	"Minimize",
-	"Maximize",
-	"Arrange",
-	"Get Info")
-
-menu_main=(
-	"New File",
-	"Edit",
-	menu_1,
-	menu_2,
-	"Help",
-	"Exit")
-
 def longest_in_the_list(list2):
 	# return the size of the longest string in the list
-	return len(max(list2,key=len))
+	longest=0
+	for item in list2:
+		if len(item)>longest:
+			longest=len(item)
+	return longest
 
 def display_box(list1):
 	# display the list in a box / not a menu
@@ -64,27 +48,6 @@ def display_box(list1):
 	w1.refresh()
 	w1.getch()
 	del w1panel
-
-def main(self):
-	win=curses.initscr()
-	# filling the screen with numbers - to see how panels are working 
-	for y in range(0, curses.LINES - 1):
-			for x in range(0, curses.COLS):
-				win.addch(".")
-	win.refresh()
-	max_option=len(menu_main)
-	max_length = longest_in_the_list(menu_main) + 4
-	returned_option=-1
-	while returned_option != (max_option-1):
-		y,x = 0, 0 
-		returned_option=run_menu(menu_main)
-		if returned_option==2:
-			y, x =returned_option, max_length
-			returned_option=run_menu(menu_1[1:],x,y, True)
-		elif returned_option==3:
-			y, x =returned_option, max_length
-			returned_option=run_menu(menu_2[1:],x,y, True)
-	curses.endwin()
 
 def display_menu(ws,x1,y1,menu1,attribut1):
 	"""
@@ -131,6 +94,14 @@ def run_menu(menu1,x=0,y=0, subMenu=False):
 		elif a==curses.KEY_UP:
 			current_option-=1
 		elif a==ord('\n') or a == 32 :
+		# validation can be done by CR or space bar
+			option_selected=current_option
+			if subMenu:
+				del menupanel
+				panel.update_panels()
+		elif a in range(ord('0'),ord('0')+max_option):
+		# in case key pressed is a number
+			current_option=a-ord('0')
 			option_selected=current_option
 			if subMenu:
 				del menupanel
@@ -140,6 +111,3 @@ def run_menu(menu1,x=0,y=0, subMenu=False):
 		elif current_option <0:
 			current_option=0
 	return option_selected
-
-if __name__ == '__main__':
-    curses.wrapper(main)
