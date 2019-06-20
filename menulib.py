@@ -4,10 +4,7 @@ from curses import panel
 
 def longest_in_the_list(l):
     # return the size of the longest string in the list
-    ll=[]
-    for item in l:
-        ll.append(len(item))
-    return max(ll)
+    return len(max(l,key=len))
 
 def display_box(list1):
 	# display the list in a box / not a menu
@@ -90,7 +87,7 @@ def run_menu(menu1,x=0,y=0, subMenu=False):
 	return option_selected
 
 def main():
-    m = ['abc', 'a', 'b', 'c', 'abcdef']
+    m = ['abc', 'really', 'isthismagic?', 'whatisthis', 'abcdef']
     print (longest_in_the_list(m))
     print(max(m))
     return
