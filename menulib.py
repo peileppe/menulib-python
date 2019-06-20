@@ -1,36 +1,13 @@
 #!/usr/bin/env python
-
-"""
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-For a copy of the license see .
-=====================================================================
-www.peileppe.com
-
-A library to use for displaying vertical menu with submenu
-Just call run_menu with a list (or tuple) of a menu
-display_box is given as extra for displaying a list outside of a menu
-
-Wednesday 09 April 2014 [10:57]
-
-"""
-
 import curses
 from curses import panel
 
-def longest_in_the_list(list2):
-	# return the size of the longest string in the list
-	longest=0
-	for item in list2:
-		if len(item)>longest:
-			longest=len(item)
-	return longest
+def longest_in_the_list(l):
+    # return the size of the longest string in the list
+    ll=[]
+    for item in l:
+        ll.append(len(item))
+    return max(ll)
 
 def display_box(list1):
 	# display the list in a box / not a menu
@@ -111,3 +88,12 @@ def run_menu(menu1,x=0,y=0, subMenu=False):
 		elif current_option <0:
 			current_option=0
 	return option_selected
+
+def main():
+    m = ['abc', 'a', 'b', 'c', 'abcdef']
+    print (longest_in_the_list(m))
+    print(max(m))
+    return
+
+if __name__=="__main__":
+    main()

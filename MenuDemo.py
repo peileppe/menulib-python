@@ -1,26 +1,4 @@
 #!/usr/bin/env python
-
-"""
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-For a copy of the license see .
-=====================================================================
-www.peileppe.com
-
-A library to use for displaying vertical menu with submenu
-Just call run_menu with a list (or tuple) of a menu
-display_box is given as extra for displaying a list outside of a menu
-
-Wednesday 09 April 2014 [10:55]
-
-"""
-
 import curses
 import menulib as m
 
@@ -47,11 +25,6 @@ menu_main=(
 
 def main(self):
 	win=curses.initscr()
-	# filling the screen with numbers - to see how panels are working 
-	for y in range(0, curses.LINES - 1):
-			for x in range(0, curses.COLS):
-				win.addch(".")
-	win.refresh()
 	max_option=len(menu_main)
 	max_length = m.longest_in_the_list(menu_main) + 4
 	returned_option=-1
